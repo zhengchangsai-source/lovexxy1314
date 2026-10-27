@@ -1,0 +1,5 @@
+[[main]]
+  identifier = "moments"
+  name = "相册"
+  pageRef = "moments"
+  weight = 10

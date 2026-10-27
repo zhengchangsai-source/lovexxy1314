@@ -1,0 +1,12 @@
+[homepage]
+  layout = "profile"
+  showRecent = true
+  showMoreLink = true
+  cardView = true
+
+[list]
+  cardView = true
+
+defaultAppearance = "light"
+autoSwitchAppearance = true
+disableImageOptimization = false

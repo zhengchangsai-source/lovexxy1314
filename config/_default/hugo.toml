@@ -1,0 +1,5 @@
+baseURL = "https://lovexxy1314.com/"
+defaultContentLanguage = "zh-cn"
+hasCJKLanguage = true
+theme = "blowfish"
+mainSections = ["moments"]
