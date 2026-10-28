@@ -253,3 +253,45 @@ html.dark body{
   }
 })();
 </script>
+
+<script>
+(function(){
+  var main = document.querySelector('main');
+  if(!main || !window.history.pushState){return;}
+  function runScripts(container){
+    container.querySelectorAll('script').forEach(function(old){
+      var s = document.createElement('script');
+      for(var i = 0; i < old.attributes.length; i++){
+        s.setAttribute(old.attributes[i].name, old.attributes[i].value);
+      }
+      s.textContent = old.textContent;
+      old.replaceWith(s);
+    });
+  }
+  function load(url, push){
+    fetch(url).then(function(r){ return r.text(); }).then(function(html){
+      var doc = new DOMParser().parseFromString(html, 'text/html');
+      var newMain = doc.querySelector('main');
+      if(!newMain){ window.location.href = url; return; }
+      main.innerHTML = newMain.innerHTML;
+      document.title = doc.title;
+      runScripts(main);
+      window.scrollTo(0, 0);
+      if(push){ history.pushState(null, '', url); }
+    }).catch(function(){ window.location.href = url; });
+  }
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a');
+    if(!a){return;}
+    var href = a.getAttribute('href');
+    if(!href || href.charAt(0) === '#' || a.target === '_blank' || a.hasAttribute('download')){return;}
+    var url;
+    try{ url = new URL(a.href, location.href); }catch(err){return;}
+    if(url.origin !== location.origin){return;}
+    if(url.pathname === location.pathname && url.search === location.search){return;}
+    e.preventDefault();
+    load(url.href, true);
+  });
+  window.addEventListener('popstate', function(){ load(location.href, false); });
+})();
+</script>
