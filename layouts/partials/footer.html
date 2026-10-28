@@ -125,3 +125,43 @@
 })();
 </script>
 {{ end }}
+<style>
+@media (pointer: fine) {
+  * { cursor: none !important; }
+}
+#love-cursor{position:fixed;left:0;top:0;z-index:10000;pointer-events:none;font-size:24px;line-height:1;color:#e5484d;text-shadow:0 2px 8px rgba(0,0,0,.25);transform:translate(-50%,-50%);opacity:0;}
+.love-trail{position:fixed;z-index:9999;pointer-events:none;line-height:1;animation:loveTrailUp .9s ease-out forwards;}
+@keyframes loveTrailUp{
+  0%{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(0deg);}
+  100%{opacity:0;transform:translate(-50%,-50%) translateY(-46px) scale(.55) rotate(28deg);}
+}
+</style>
+<div id="love-cursor">♥</div>
+<script>
+(function(){
+  if(!window.matchMedia('(pointer: fine)').matches){return;}
+  var cur = document.getElementById('love-cursor');
+  if(!cur){return;}
+  var lastSpawn = 0;
+  document.addEventListener('mousemove', function(e){
+    cur.style.left = e.clientX + 'px';
+    cur.style.top = e.clientY + 'px';
+    cur.style.opacity = '1';
+    var now = Date.now();
+    if(now - lastSpawn < 70){return;}
+    lastSpawn = now;
+    if(document.querySelectorAll('.love-trail').length > 30){return;}
+    var s = document.createElement('span');
+    s.className = 'love-trail';
+    s.textContent = '♥';
+    var colors = ['#f7a8b8','#ff6b81','#e5484d','#f5c97b'];
+    s.style.color = colors[Math.floor(Math.random()*colors.length)];
+    s.style.fontSize = (10 + Math.random()*10) + 'px';
+    s.style.left = e.clientX + 'px';
+    s.style.top = e.clientY + 'px';
+    document.body.appendChild(s);
+    setTimeout(function(){ s.remove(); }, 950);
+  });
+  document.addEventListener('mouseleave', function(){ cur.style.opacity = '0'; });
+})();
+</script>
