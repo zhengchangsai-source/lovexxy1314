@@ -180,3 +180,49 @@
   --color-primary-950: 80, 7, 36;
 }
 </style>
+<style>
+body{
+  background: linear-gradient(120deg,#fdf2f8,#fff1f2,#fef3c7,#fdf2f8) !important;
+  background-size: 300% 300% !important;
+  background-attachment: fixed !important;
+  animation: loveBgFlow 18s ease-in-out infinite !important;
+}
+html.dark body{
+  background: linear-gradient(120deg,#2b1216,#3d1a20,#1c0b0e,#2b1216) !important;
+  background-size: 300% 300% !important;
+  background-attachment: fixed !important;
+  animation: loveBgFlow 18s ease-in-out infinite !important;
+}
+@keyframes loveBgFlow{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+#love-bg-hearts{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:1;}
+#love-bg-hearts span{position:absolute;bottom:-24px;animation:loveBgRise linear forwards;pointer-events:none;}
+@keyframes loveBgRise{
+  0%{opacity:0;transform:translateY(0) rotate(0deg);}
+  12%{opacity:.35;}
+  100%{opacity:0;transform:translateY(-105vh) rotate(24deg);}
+}
+</style>
+<div id="love-bg-hearts"></div>
+<script>
+(function(){
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){return;}
+  var box = document.getElementById('love-bg-hearts');
+  if(!box){return;}
+  var colors = ['#f7a8b8','#ff6b81','#f5c97b','#fda4af'];
+  setInterval(function(){
+    if(box.childElementCount > 14){return;}
+    var s = document.createElement('span');
+    s.textContent = '♥';
+    s.style.left = Math.random()*100 + 'vw';
+    s.style.fontSize = (12 + Math.random()*10) + 'px';
+    s.style.color = colors[Math.floor(Math.random()*colors.length)];
+    s.style.animationDuration = (7 + Math.random()*3) + 's';
+    box.appendChild(s);
+    setTimeout(function(){ s.remove(); }, 10500);
+  }, 900);
+})();
+</script>
