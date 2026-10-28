@@ -4,4 +4,4 @@ date: 2026-10-28
 ---
 
 {{< lovedays >}}
-{{< lovedays-decor >}}
+{{< lovedaysdecor >}}
