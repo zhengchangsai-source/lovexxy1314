@@ -202,7 +202,7 @@ html.dark body{
 #love-bg-hearts span{position:absolute;bottom:-24px;animation:loveBgRise linear forwards;pointer-events:none;}
 @keyframes loveBgRise{
   0%{opacity:0;transform:translateY(0) rotate(0deg);}
-  12%{opacity:.35;}
+  12%{opacity:.6;}
   100%{opacity:0;transform:translateY(-105vh) rotate(24deg);}
 }
 </style>
@@ -212,13 +212,14 @@ html.dark body{
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){return;}
   var box = document.getElementById('love-bg-hearts');
   if(!box){return;}
-  var colors = ['#f7a8b8','#ff6b81','#f5c97b','#fda4af'];
+  var colors = ['#f472b6','#c084fc','#60a5fa','#fb923c','#fb7185','#facc15'];
+  var shapes = ['♥','★','✦'];
   setInterval(function(){
     if(box.childElementCount > 14){return;}
     var s = document.createElement('span');
-    s.textContent = '♥';
+    s.textContent = shapes[Math.floor(Math.random()*shapes.length)];
     s.style.left = Math.random()*100 + 'vw';
-    s.style.fontSize = (12 + Math.random()*10) + 'px';
+    s.style.fontSize = (14 + Math.random()*12) + 'px';
     s.style.color = colors[Math.floor(Math.random()*colors.length)];
     s.style.animationDuration = (7 + Math.random()*3) + 's';
     box.appendChild(s);
@@ -226,3 +227,4 @@ html.dark body{
   }, 900);
 })();
 </script>
+
