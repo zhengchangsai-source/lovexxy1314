@@ -1,0 +1,47 @@
+<div class="love-days">
+  <div class="love-days-heart">♥</div>
+  <div class="love-days-num"><span id="love-days-count">--</span><span class="love-days-unit">天</span></div>
+  <div class="love-days-clock" id="love-days-clock">-- 时 -- 分 -- 秒</div>
+  <div class="love-days-sub">从 2021 年 11 月 14 日开始</div>
+  <div class="love-days-ann" id="love-days-ann"></div>
+</div>
+<style>
+.love-days{text-align:center;padding:30px 10px;}
+.love-days-heart{font-size:44px;color:#e5484d;animation:loveBeat 1.6s ease-in-out infinite;}
+@keyframes loveBeat{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+.love-days-num{font-size:64px;font-weight:700;line-height:1.2;background:linear-gradient(90deg,#f5c97b,#f7a8b8);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.love-days-unit{font-size:28px;margin-left:6px;}
+.love-days-clock{font-size:20px;margin-top:6px;opacity:.75;font-variant-numeric:tabular-nums;}
+.love-days-sub{margin-top:16px;opacity:.6;font-size:15px;}
+.love-days-ann{margin-top:8px;color:#e5484d;font-size:16px;}
+@media (max-width:600px){.love-days-num{font-size:48px;}}
+</style>
+<script>
+(function(){
+  var start = new Date(2021, 10, 14);
+  var countEl = document.getElementById('love-days-count');
+  var clockEl = document.getElementById('love-days-clock');
+  var annEl = document.getElementById('love-days-ann');
+  function pad(n){return (n<10?'0':'')+n;}
+  function tick(){
+    var now = new Date();
+    var diff = now - start;
+    if(diff < 0) diff = 0;
+    var days = Math.floor(diff/86400000);
+    var rem = diff % 86400000;
+    var h = Math.floor(rem/3600000); rem = rem%3600000;
+    var m = Math.floor(rem/60000); rem = rem%60000;
+    var s = Math.floor(rem/1000);
+    countEl.textContent = days;
+    clockEl.textContent = pad(h)+' 时 '+pad(m)+' 分 '+pad(s)+' 秒';
+    var y = now.getFullYear();
+    var ann = new Date(y, 10, 14);
+    if(ann < now) ann = new Date(y+1, 10, 14);
+    var daysTo = Math.ceil((ann - now)/86400000);
+    var years = ann.getFullYear() - 2021;
+    annEl.textContent = '距离 '+years+' 周年还有 '+daysTo+' 天';
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+</script>

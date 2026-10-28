@@ -3,3 +3,8 @@
   name = "相册"
   pageRef = "moments"
   weight = 10
+[[main]]
+  identifier = "days"
+  name = "我们的日子"
+  pageRef = "days"
+  weight = 20
